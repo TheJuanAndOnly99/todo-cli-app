@@ -1,9 +1,9 @@
 export interface User {
-	id: string;
+	id: number;
 	name: string;
 }
 
-export function createUser(id: string, name: string): User {
+export function createUser(id: number, name: string): User {
 	return {
 		id,
 		name

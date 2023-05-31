@@ -1,13 +1,20 @@
 import { Task } from '../businessLogic/taskManager';
+class TaskAccess {
+	private tasks: Task[];
 
-const tasks: Task[] = [];
+	constructor() {
+		this.tasks = [];
+	}
 
-export function addTask(task: Task): void {
-	tasks.push(task);
-	console.log(`addTask(${task.id}, ${task.description})`);
+	addTask(task: Task): void {
+		this.tasks.push(task);
+		console.log(`addTask(${task.id}, ${task.description})`);
+	}
+
+	getTasks(): Task[] {
+		console.log(this.tasks);
+		return this.tasks;
+	}
 }
 
-export function getTasks(): Task[] {
-	console.log(tasks);
-	return tasks;
-}
+export default TaskAccess;
