@@ -1,11 +1,18 @@
 import TaskAccess from '../../src/dataAccess/taskRepository';
 import { Task } from '../../src/businessLogic/taskManager';
+import fs from 'fs';
+import path from 'path';
 
 describe('TaskAccess', () => {
+	const taskDataFilePath = path.resolve(__dirname, 'taskData.json');
+
+	// if filepath does not exist, create it
+
 	let taskAccess: TaskAccess;
 
 	beforeEach(() => {
-		taskAccess = new TaskAccess();
+		taskAccess = new TaskAccess(taskDataFilePath);
+		taskAccess.clearTasks();
 	});
 
 	it('should add a task correctly', () => {
@@ -22,5 +29,14 @@ describe('TaskAccess', () => {
 		taskAccess.addTask(task2);
 
 		expect(taskAccess.getTasks()).toEqual([ task1, task2 ]);
+	});
+
+	it('should save a task correctly', () => {
+		const task1: Task = { id: 1, description: 'Task 1', status: 'pending' };
+
+		taskAccess.addTask(task1);
+
+		const data = fs.readFileSync(taskDataFilePath, 'utf8');
+		expect(data).toEqual(JSON.stringify([ task1 ], null, 2));
 	});
 });

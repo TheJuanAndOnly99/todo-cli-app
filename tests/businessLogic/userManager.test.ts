@@ -1,13 +1,13 @@
-import { User, createUser } from '../../src/businessLogic/userManager';
+import { User } from '../../src/businessLogic/userManager';
 
-describe('userUtils', () => {
-	it('should create a user correctly', () => {
-		const id = 1;
-		const name = 'John Doe';
-		const expectedUser: User = { id, name };
+describe('User', () => {
+	it('should have the correct properties', () => {
+		const user: User = {
+			id: 1,
+			name: 'Joe'
+		};
 
-		const createdUser = createUser(id, name);
-
-		expect(createdUser).toEqual(expectedUser);
+		expect(user.id).toBe(1);
+		expect(user.name).toBe('Joe');
 	});
 });

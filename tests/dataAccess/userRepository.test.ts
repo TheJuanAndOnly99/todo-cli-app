@@ -8,6 +8,11 @@ describe('UserAccess', () => {
 		userAccess = new UserAccess();
 	});
 
+	it('should create a user correctly', () => {
+		const user: User = { id: 1, name: 'John Doe' };
+		expect(userAccess.createUser(1, 'John Doe')).toEqual(user);
+	});
+
 	it('should add a user correctly', () => {
 		const user: User = { id: 1, name: 'John Doe' };
 		userAccess.addUser(user);

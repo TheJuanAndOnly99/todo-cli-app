@@ -1,22 +1,15 @@
-import { Task, createTask, markTaskAsCompleted } from '../../src/businessLogic/taskManager';
+import { Task } from '../../src/businessLogic/taskManager';
 
-describe('taskUtils', () => {
-	it('should create a task correctly', () => {
-		const id = 1;
-		const description = 'Task 1';
-		const expectedTask: Task = { id, description, status: 'pending' };
+describe('Task', () => {
+	it('should have the correct properties', () => {
+		const task: Task = {
+			id: 1,
+			description: 'Task description',
+			status: 'pending'
+		};
 
-		const createdTask = createTask(id, description);
-
-		expect(createdTask).toEqual(expectedTask);
-	});
-
-	it('should mark a task as completed', () => {
-		const task: Task = { id: 1, description: 'Task 1', status: 'pending' };
-		const expectedTask: Task = { id: 1, description: 'Task 1', status: 'completed' };
-
-		markTaskAsCompleted(task);
-
-		expect(task).toEqual(expectedTask);
+		expect(task.id).toBe(1);
+		expect(task.description).toBe('Task description');
+		expect(task.status).toBe('pending');
 	});
 });
