@@ -1,13 +1,27 @@
 import { User } from '../businessLogic/userManager';
+class UserAccess {
+	private users: User[];
 
-const users: User[] = [];
+	constructor() {
+		this.users = [];
+	}
 
-export function addUser(user: User): void {
-	console.log(`addUser(${user.id}, ${user.name})`);
-	users.push(user);
+	createUser(id: number, name: string): User {
+		return {
+			id,
+			name
+		};
+	}
+
+	addUser(user: User): void {
+		console.log(`addUser(${user.id}, ${user.name})`);
+		this.users.push(user);
+	}
+
+	getUsers(): User[] {
+		console.log(this.users);
+		return this.users;
+	}
 }
 
-export function getUsers(): User[] {
-	console.log(users);
-	return users;
-}
+export default UserAccess;

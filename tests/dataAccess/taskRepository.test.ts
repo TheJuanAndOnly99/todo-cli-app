@@ -1,34 +1,42 @@
-import { addTask, getTasks } from '../../src/dataAccess/taskRepository';
-import { Task, createTask } from '../../src/businessLogic/taskManager';
+import TaskAccess from '../../src/dataAccess/taskRepository';
+import { Task } from '../../src/businessLogic/taskManager';
+import fs from 'fs';
+import path from 'path';
 
-const tasks: Task[] = [];
+describe('TaskAccess', () => {
+	const taskDataFilePath = path.resolve(__dirname, 'taskData.json');
 
-describe('Task Repository', () => {
+	// if filepath does not exist, create it
+
+	let taskAccess: TaskAccess;
+
 	beforeEach(() => {
-		// Reset tasks before each test
-		tasks.length = 0;
+		taskAccess = new TaskAccess(taskDataFilePath);
+		taskAccess.clearTasks();
 	});
 
-	it('should add a task', () => {
-		const task = createTask(1, 'Task 1');
-
-		addTask(task);
-
-		expect(tasks[0]).toEqual(task);
+	it('should add a task correctly', () => {
+		const task: Task = { id: 1, description: 'Task 1', status: 'pending' };
+		taskAccess.addTask(task);
+		expect(taskAccess.getTasks()).toEqual([ task ]);
 	});
 
-	it('should get tasks', () => {
-		const task2 = createTask(2, 'Task 2');
-		console.log(`task2: ${task2}`);
-		const task3 = createTask(3, 'Task 3');
-		console.log(`task3: ${task3}`);
+	it('should get all tasks correctly', () => {
+		const task1: Task = { id: 1, description: 'Task 1', status: 'pending' };
+		const task2: Task = { id: 2, description: 'Task 2', status: 'pending' };
 
-		addTask(task2);
-		addTask(task3);
+		taskAccess.addTask(task1);
+		taskAccess.addTask(task2);
 
-		const retrievedTasks = getTasks();
-		console.log(`retrievedTasks: ${retrievedTasks}`);
+		expect(taskAccess.getTasks()).toEqual([ task1, task2 ]);
+	});
 
-		expect(retrievedTasks[1]).toEqual([ { task2 } ]);
+	it('should save a task correctly', () => {
+		const task1: Task = { id: 1, description: 'Task 1', status: 'pending' };
+
+		taskAccess.addTask(task1);
+
+		const data = fs.readFileSync(taskDataFilePath, 'utf8');
+		expect(data).toEqual(JSON.stringify([ task1 ], null, 2));
 	});
 });

@@ -1,3 +1,3 @@
-import { getTasks } from './taskRepository';
+import Tasks from './taskRepository';
 
-console.log('getTasks():', getTasks());
+console.log('getTasks():', Tasks);
