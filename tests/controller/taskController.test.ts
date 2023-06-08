@@ -1,8 +1,6 @@
 import { TaskController } from '../../src/controllers/taskController.js';
 
 describe('TaskController', () => {
-	// if filepath does not exist, create it
-
 	let taskController: TaskController;
 
 	beforeEach(() => {
