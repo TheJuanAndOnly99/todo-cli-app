@@ -1,6 +1,6 @@
 import { Task } from '../models/task.js';
 
-export class TaskController {
+class TaskController {
 	private tasks: Task[];
 
 	constructor() {
@@ -41,3 +41,5 @@ export class TaskController {
 		this.tasks = [];
 	}
 }
+
+export { TaskController };
