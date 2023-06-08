@@ -1,4 +1,4 @@
-import { User } from '../../src/businessLogic/userManager';
+import { User } from '../../src/models/user.js';
 
 describe('User', () => {
 	it('should have the correct properties', () => {
